@@ -1,16 +1,30 @@
-# This is a sample Python script.
+import pickle
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+# Є словник з друзями, де ключ – людина, а значення –
+# список друзів. Користувач вводить імена двох людей,
+# які є друзями, повторює це певну кількість разів,
+# після чого дані зберігаються у файл.
+# Завантажте дані назад та виведіть на екран.
+
+def add_friend(ammount):
+    friends = {}
+    for i in range(ammount):
+        friend = input(f"Input {i+1}st friends name: ")
+        friends[friend] = []
+        num = int(input(f"How many friends do you want to add to {friend}: "))
+        for j in range(num):
+            friend_from_group = input(f"Input {j + 1}th friend from {friend}: ")
+            friends[friend].append(friend_from_group)
+    # print(friends)
+
+    with open("friends_data.pickle", "wb") as file:
+        pickle.dump(friends, file)
+
+def load_data(file_name):
+    with open(file_name, "rb") as file:
+        read_data = pickle.load(file)
+    print(f"Loaded data: {read_data}")
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+add_friend(3)
+load_data("friends_data.pickle")
